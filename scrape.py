@@ -15,18 +15,18 @@ def get_all_india_sections():
     soup = BeautifulSoup(r.text, "html.parser")
     body = soup.find("body")
     content = body.find("div", id="Content")
-    outerHTML = content.find_all("ul")[23]
+    outerHTML = content.find_all("ul")[2]
     lis = outerHTML.find_all("li")
     links = []
     for l in lis:
       if "New Jersey" not in l:
         links.append(l.find("a")["href"])
-    outerHTML = content.find_all("ul")[21]
+    outerHTML = content.find_all("ul")[3]
     lis = outerHTML.find_all("li")
     for l in lis:
       if "California" not in l:
         links.append(l.find("a")["href"])
-    outerHTML = content.find_all("ul")[25]
+    outerHTML = content.find_all("ul")[4]
     lis = outerHTML.find_all("li")
     for l in lis:
       if "New Jersey" not in l:
@@ -88,7 +88,10 @@ def sort_names(names):
     elif gender == "female":
       num_females = num_females + 1
     if not (gender == "undefined"):
-      f.write(n  + " " + gender + "\n")
+      try: 
+        f.write(n  + " " + gender + "\n")
+      except:
+        f.write("###" + gender)
       print gender
   f.close()
 sort_names(combine_names_from_links())
